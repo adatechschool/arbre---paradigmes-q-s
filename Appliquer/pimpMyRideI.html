@@ -55,13 +55,27 @@
             })
             return result
         }
-        console.log(sum)
-    }
 
-    getTripsPrice(parse)
+        let myTrips = findCompatibility(newPassengers)
 
+        // check this function out on Monday to see where goes wrong
+        function findBestPrice(trips) {
+            let bestPrice = trips[0];
+            //for loop works fine
+            for (let i = 1; i < trips.length; i++) {
+                if (getTripsPrice(trips[i]) > getTripsPrice(bestPrice)) {
+                    //feels like the returned value is not taken into account
+                    bestPrice = trips[i]
+                }
+            }
+            return bestPrice
+        }
+        // only display the value of the variable bestPrice
+        console.log(findBestPrice(myTrips))
 
-</script>
+    </script>
+</head>
+
 <body>
     <h1>Pime My Ride - Part I</h1>
 </body>
