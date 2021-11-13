@@ -4,39 +4,56 @@
 <head>
     <meta charset="UTF-8">
     <title>Pimp My Ride - PART I</title>
-</head>
-
-<body>
-
-</body>
-<script>
-    let trips = [
-        "Roger 0 5 10",
-        "Pongo 3 7 14",
-        "Perdita 8 10 8",
-        "Anita 16 3 7"
-    ]
-    function parseTrip(trip) {
-        var arr = trip.split(" ");
-        return { client: arr[0], start: parseInt(arr[1]), duration: parseInt(arr[2]), price: parseInt(arr[3]) };
-    }
-    function parseTrips(trips) {
-        var passengers = [];
-        for (var i = 0; i < trips.length; i++) {
-            passengers.push(parseTrip(trips[i]));
+    <script>
+        let trips = [
+            "Roger 0 5 10",
+            "Pongo 3 7 14",
+            "Perdita 8 10 8",
+            "Anita 16 3 7"
+        ]
+        function parseTrip(trip) {
+            var arr = trip.split(" ");
+            return { client: arr[0], start: parseInt(arr[1]), duration: parseInt(arr[2]), price: parseInt(arr[3]) };
         }
-        return passengers
-    }
-    var parse = parseTrips(trips);
-    /*const sum = parse.map(item => item.price).reduce((prev, curr) => prev + curr, 0);
-    console.log(sum);*/
-    //var sum = parse.reduce(function(prev, cur) {return prev + cur.price},0);
-    //console.log(sum)
+        function parseTrips(trips) {
+            var passengers = [];
+            for (var i = 0; i < trips.length; i++) {
+                passengers.push(parseTrip(trips[i]));
+            }
+            return passengers
+        }
+        var newPassengers = parseTrips(trips);
 
-    function getTripsPrice(trips) {
-        var sum = 0
-        for (let i = 0; i < trips.length; i++) {
-            sum += trips[i].price;
+        function getTripsPrice(trips) {
+            var sum = 0
+            for (let i = 0; i < trips.length; i++) {
+                sum += trips[i].price;
+            }
+        }
+        getTripsPrice(newPassengers)
+
+
+        function checkCompatibility(tripA, tripB) {
+            let arrivalTime = tripA.start + tripA.duration
+            if (arrivalTime > tripB.start) {
+                return false
+            }
+            else {
+                return true
+            }
+        }
+
+        function findCompatibility(newPassengers) {
+            let result = [];
+            newPassengers.forEach(function (newPassenger, i) {
+                result.push([newPassenger])
+                for (let j = i + 1; j < newPassengers.length; j++) {
+                    if (checkCompatibility(newPassengers[i], newPassengers[j]) === true) {
+                        result.push([newPassengers[i], newPassengers[j]])
+                    }
+                }
+            })
+            return result
         }
         console.log(sum)
     }
@@ -45,5 +62,16 @@
 
 
 </script>
+<body>
+    <h1>Pime My Ride - Part I</h1>
+</body>
+<style>
+    h1 {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-weight: bold;
+        font-size: 60px;
+        text-align: center;
+    }
+</style>
 
 </html>
